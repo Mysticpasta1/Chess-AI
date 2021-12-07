@@ -34,8 +34,8 @@
 			['>'] = Piece.Silver_General
 		};
 
-		public const string startFen = "rmxxxxcfnnhikqnnfcxxxx>r/uljvwobzaadeedaazbowvjlu/pppppppppppppppppppppppp/888/888/888/888/888/888/888/888/888/888/888/888/888/888/888/888/888/888/PPPPPPPPPPPPPPPPPPPPPPPP/ULJVWOBZAADEEDAAZBOWVJLU/R<XXXXCFNNHIKQNNFCXXXXMR w - - 0 1";
-
+		public const string startFen = "88rnbqkbnr/88pppppppp888/888/888/888/888/888/888/888/888/888/888/888/888/888/888/888/888/888/888/888/88RNBQKBNR/88PPPPPPPP w - - 0 1";
+		//rmxxxxcfnnhikqnnfcxxxx>r/uljvwobzaadeedaazbowvjlu/pppppppppppppppppppppppp/888/888/888/888/888/888/888/888/888/888/888/888/888/888/888/888/888/888/PPPPPPPPPPPPPPPPPPPPPPPP/ULJVWOBZAADEEDAAZBOWVJLU/R<XXXXCFNNHIKQNNFCXXXXMR w - - 0 1
 		// Load position from fen string
 		public static LoadedPositionInfo PositionFromFen (string fen) {
 
