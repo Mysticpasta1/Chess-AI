@@ -58,19 +58,19 @@ namespace Chess.Game {
 		}
 
 		public bool TryGetSquareUnderMouse (Vector2 mouseWorld, out Coord selectedCoord) {
-			int file = (int) (mouseWorld.x + 4);
-			int rank = (int) (mouseWorld.y + 4);
+			int file = (int) (mouseWorld.x + 11);
+			int rank = (int) (mouseWorld.y + 11);
 			if (!whiteIsBottom) {
-				file = 7 - file;
-				rank = 7 - rank;
+				file = 23 - file;
+				rank = 23 - rank;
 			}
 			selectedCoord = new Coord (file, rank);
-			return file >= 0 && file < 8 && rank >= 0 && rank < 8;
+			return file >= 0 && file < 24 && rank >= 0 && rank < 24;
 		}
 
 		public void UpdatePosition (Board board) {
-			for (int rank = 0; rank < 8; rank++) {
-				for (int file = 0; file < 8; file++) {
+			for (int rank = 0; rank < 24; rank++) {
+				for (int file = 0; file < 24; file++) {
 					Coord coord = new Coord (file, rank);
 					int piece = board.Square[BoardRepresentation.IndexFromCoord (coord.fileIndex, coord.rankIndex)];
 					squarePieceRenderers[file, rank].sprite = pieceTheme.GetPieceSprite (piece);
@@ -115,39 +115,47 @@ namespace Chess.Game {
 			SetSquareColour (BoardRepresentation.CoordFromIndex (move.TargetSquare), boardTheme.lightSquares.moveToHighlight, boardTheme.darkSquares.moveToHighlight);
 		}
 
-		void CreateBoardUI () {
+		void CreateBoardUI()
+		{
 
-			Shader squareShader = Shader.Find ("Unlit/Color");
-			squareRenderers = new MeshRenderer[8, 8];
-			squarePieceRenderers = new SpriteRenderer[8, 8];
+			Shader squareShader = Shader.Find("Unlit/Color");
+			squareRenderers = new MeshRenderer[24, 24];
+			squarePieceRenderers = new SpriteRenderer[24, 24];
 
-			for (int rank = 0; rank < 8; rank++) {
-				for (int file = 0; file < 8; file++) {
+			for (int rank = 0; rank < 24; rank ++)
+			{
+				for (int file = 0; file < 24; file ++)
+				{
 					// Create square
-					Transform square = GameObject.CreatePrimitive (PrimitiveType.Quad).transform;
+					Transform square = GameObject.CreatePrimitive(PrimitiveType.Quad).transform;
 					square.parent = transform;
-					square.name = BoardRepresentation.SquareNameFromCoordinate (file, rank);
-					square.position = PositionFromCoord (file, rank, 0);
-					Material squareMaterial = new Material (squareShader);
+					square.name = BoardRepresentation.SquareNameFromCoordinate(file, rank);
 
-					squareRenderers[file, rank] = square.gameObject.GetComponent<MeshRenderer> ();
+					square.position = PositionFromCoord(file, rank, 0);
+
+					Material squareMaterial = new Material(squareShader);
+
+					squareRenderers[file, rank] = square.gameObject.GetComponent<MeshRenderer>();
 					squareRenderers[file, rank].material = squareMaterial;
 
 					// Create piece sprite renderer for current square
-					SpriteRenderer pieceRenderer = new GameObject ("Piece").AddComponent<SpriteRenderer> ();
+					SpriteRenderer pieceRenderer = new GameObject("Piece").AddComponent<SpriteRenderer>();
 					pieceRenderer.transform.parent = square;
-					pieceRenderer.transform.position = PositionFromCoord (file, rank, pieceDepth);
-					pieceRenderer.transform.localScale = Vector3.one * 100 / (2000 / 6f);
+					pieceRenderer.transform.position = PositionFromCoord(file, rank, pieceDepth);
 					squarePieceRenderers[file, rank] = pieceRenderer;
 				}
 			}
 
-			ResetSquareColours ();
+			GameObject board = GameObject.FindGameObjectWithTag("BoardUI");
+			board.transform.localScale = Vector3.one * (0.4f);
+			board.transform.localPosition = new Vector3(-2.8f, -2.8f, 0);
+
+			ResetSquareColours();
 		}
 
 		void ResetSquarePositions () {
-			for (int rank = 0; rank < 8; rank++) {
-				for (int file = 0; file < 8; file++) {
+			for (int rank = 0; rank < 24; rank++) {
+				for (int file = 0; file < 24; file++) {
 					if (file == 0 && rank == 0) {
 						//Debug.Log (squarePieceRenderers[file, rank].gameObject.name + "  " + PositionFromCoord (file, rank, pieceDepth));
 					}
@@ -165,12 +173,11 @@ namespace Chess.Game {
 		public void SetPerspective (bool whitePOV) {
 			whiteIsBottom = whitePOV;
 			ResetSquarePositions ();
-
 		}
 
 		public void ResetSquareColours (bool highlight = true) {
-			for (int rank = 0; rank < 8; rank++) {
-				for (int file = 0; file < 8; file++) {
+			for (int rank = 0; rank < 24; rank++) {
+				for (int file = 0; file < 24; file++) {
 					SetSquareColour (new Coord (file, rank), boardTheme.lightSquares.normal, boardTheme.darkSquares.normal);
 				}
 			}
@@ -185,11 +192,11 @@ namespace Chess.Game {
 			squareRenderers[square.fileIndex, square.rankIndex].material.color = (square.IsLightSquare ()) ? lightCol : darkCol;
 		}
 
-		public Vector3 PositionFromCoord (int file, int rank, float depth = 0) {
+		public Vector3 PositionFromCoord(float file, float rank, float depth = 0) {
 			if (whiteIsBottom) {
-				return new Vector3 (-3.5f + file, -3.5f + rank, depth);
+				return new Vector3 (-4.5f + file, -4.5f + rank, depth);
 			}
-			return new Vector3 (-3.5f + 7 - file, 7 - rank - 3.5f, depth);
+			return new Vector3 (-4.5f + 7 - file, 7 - rank - 4.5f, depth);
 
 		}
 

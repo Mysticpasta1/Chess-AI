@@ -13,22 +13,58 @@ MonoBehaviour:
   m_Name: Default
   m_EditorClassIdentifier: 
   whitePieces:
-    pawn: {fileID: 421191062671846005, guid: 2345a1e863e9d4c6686f1e9f1a23d754, type: 3}
-    rook: {fileID: -8231439895271094956, guid: 2345a1e863e9d4c6686f1e9f1a23d754, type: 3}
-    knight: {fileID: 5262411738066956617, guid: 2345a1e863e9d4c6686f1e9f1a23d754,
-      type: 3}
-    bishop: {fileID: 1801684832408766203, guid: 2345a1e863e9d4c6686f1e9f1a23d754,
-      type: 3}
-    queen: {fileID: -5707208235025365451, guid: 2345a1e863e9d4c6686f1e9f1a23d754,
-      type: 3}
-    king: {fileID: 5815346444209245126, guid: 2345a1e863e9d4c6686f1e9f1a23d754, type: 3}
+    pawn: {fileID: 21300000, guid: 46955d5f7f7e3c645914f20e99898308, type: 3}
+    rook: {fileID: 21300000, guid: 7b11a8d4560dbb94585758b8e9142312, type: 3}
+    knight: {fileID: 21300000, guid: a3f433bb6cb9f524fbea357a959532b8, type: 3}
+    bishop: {fileID: 21300000, guid: 97f2b36380a77fb408317889857806ba, type: 3}
+    queen: {fileID: 21300000, guid: 85c9ee5e24d12c84f9de1ab0e0958791, type: 3}
+    king: {fileID: 21300000, guid: 38788c4d0c291f848b5674ffa6e8bb59, type: 3}
+    amazon: {fileID: 21300000, guid: 1e51e09bf74f1a648818f1fa105aec22, type: 3}
+    champion: {fileID: 21300000, guid: 4e2980d5d0b6d954cb7f36048179a929, type: 3}
+    wizard: {fileID: 21300000, guid: fb1f927f285983d4bbb300e5b43845fb, type: 3}
+    chancellor: {fileID: 21300000, guid: 6b01b005e4255d5478bc0c75f8fa4d8f, type: 3}
+    archbishop: {fileID: 21300000, guid: 71b8291c0da4fc549a8a7bdb3f2884da, type: 3}
+    falcon: {fileID: 21300000, guid: 72716a4945dc90846ade110f633048e0, type: 3}
+    hunter: {fileID: 21300000, guid: cf50af54c1ebbb6449f60725bedb5842, type: 3}
+    silver_general: {fileID: 21300000, guid: 7c0b4d938664fec439bd64dc05982347, type: 3}
+    gold_general: {fileID: 21300000, guid: 7eddcb41ed7d7e34e872a8a31c0a2f99, type: 3}
+    lance: {fileID: 21300000, guid: e1120d5e958d0dc459e520dcaa2c9222, type: 3}
+    dragon_horse: {fileID: 21300000, guid: b3994e473efbd54439533ba9a8c0668d, type: 3}
+    dragon_king: {fileID: 21300000, guid: 62941d3363e237347a2568c9c1840add, type: 3}
+    ultima_pawn: {fileID: 21300000, guid: 981bbe8253761dd47bdead11f37d492c, type: 3}
+    withdrawer: {fileID: 21300000, guid: c9e9ff9534da1f644a9c58c8dd41ceb7, type: 3}
+    long_leaper: {fileID: 21300000, guid: 160d00dfe09489c4b853346b92b18e4c, type: 3}
+    coordinator: {fileID: 21300000, guid: 4a7e83ec3a970ed43adeb7a25b3f0b1d, type: 3}
+    immobilizer: {fileID: 21300000, guid: 6377fda3e6e28c0428373e6efb8f6a2b, type: 3}
+    elephant: {fileID: 21300000, guid: 56cd6811814954e41ba9f1c821d4b186, type: 3}
+    cannon: {fileID: 21300000, guid: fbc46ac08538c99468ab12f564b10213, type: 3}
+    mao: {fileID: 21300000, guid: 1312614c678eb184a80355d8408cce92, type: 3}
+    guard: {fileID: 21300000, guid: a21486137321b9143a3639d7cc1226f6, type: 3}
   blackPieces:
-    pawn: {fileID: -7446464978723970562, guid: 2345a1e863e9d4c6686f1e9f1a23d754, type: 3}
-    rook: {fileID: -9028730725494140493, guid: 2345a1e863e9d4c6686f1e9f1a23d754, type: 3}
-    knight: {fileID: 2484422302985503874, guid: 2345a1e863e9d4c6686f1e9f1a23d754,
-      type: 3}
-    bishop: {fileID: -4521170433502928094, guid: 2345a1e863e9d4c6686f1e9f1a23d754,
-      type: 3}
-    queen: {fileID: -5519977043689896800, guid: 2345a1e863e9d4c6686f1e9f1a23d754,
-      type: 3}
-    king: {fileID: 6713323665980220584, guid: 2345a1e863e9d4c6686f1e9f1a23d754, type: 3}
+    pawn: {fileID: 21300000, guid: a41a62d6ffb003b42a5e23ca1a2cf972, type: 3}
+    rook: {fileID: 21300000, guid: f01758c9802e2df41b2c46c524f21d22, type: 3}
+    knight: {fileID: 21300000, guid: 599c29b6cd3a1dd44bdec315cfff306c, type: 3}
+    bishop: {fileID: 21300000, guid: 9af4fe4bcd7fc854793527c8874a3077, type: 3}
+    queen: {fileID: 21300000, guid: 1095a5074dbd0114ca83d64b842164e3, type: 3}
+    king: {fileID: 21300000, guid: 35c797d42d0bb9946b7639715b6ef450, type: 3}
+    amazon: {fileID: 21300000, guid: cc1c942709ba4aa4ca3f963c610aa408, type: 3}
+    champion: {fileID: 21300000, guid: f49d1d24a34023a4691ee7be97457f94, type: 3}
+    wizard: {fileID: 21300000, guid: 143dac7996872d147a5b53c01ffade58, type: 3}
+    chancellor: {fileID: 21300000, guid: eccf5d8e304b7814397d10ddd089bd91, type: 3}
+    archbishop: {fileID: 21300000, guid: 5f4aa184ada769743a4c9bac1a1ee880, type: 3}
+    falcon: {fileID: 21300000, guid: bcb32ec3ba0db6d4db9ef2a2ae519241, type: 3}
+    hunter: {fileID: 21300000, guid: a7aa09230170d334981a3349a077c67f, type: 3}
+    silver_general: {fileID: 21300000, guid: 73f290a13154378419ad36c12525a675, type: 3}
+    gold_general: {fileID: 21300000, guid: e5622f15eda458b4c8d556a8bd15b3b2, type: 3}
+    lance: {fileID: 21300000, guid: 092af0f8be991b24882357fcd4bf6c52, type: 3}
+    dragon_horse: {fileID: 21300000, guid: 55bcb9792fca4994c8987644e8078ea1, type: 3}
+    dragon_king: {fileID: 21300000, guid: de8e30b425ad5c74c83d740f9ddc748c, type: 3}
+    ultima_pawn: {fileID: 21300000, guid: 717c95f1369e70e46a8c8a7508e855f3, type: 3}
+    withdrawer: {fileID: 21300000, guid: d7163a49cf3af4146912061c23345829, type: 3}
+    long_leaper: {fileID: 21300000, guid: 9c4af560e18648f48a39da8a00dede26, type: 3}
+    coordinator: {fileID: 21300000, guid: 66d5d2de06c31bf4f9e5432bc75e52d4, type: 3}
+    immobilizer: {fileID: 21300000, guid: 5fb2f0b4eef3e7d4eaafa5d186def018, type: 3}
+    elephant: {fileID: 21300000, guid: d54458168fe2c1f48809e0d1491427c6, type: 3}
+    cannon: {fileID: 21300000, guid: 28d4ebd52e461ea47a45537bdb68b88f, type: 3}
+    mao: {fileID: 21300000, guid: 7d6320822739f914c9e251e9f478f1cb, type: 3}
+    guard: {fileID: 21300000, guid: 21be3ffb079ec9943840a27d5dc023d3, type: 3}

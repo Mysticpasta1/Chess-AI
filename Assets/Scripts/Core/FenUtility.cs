@@ -2,11 +2,39 @@
 	using System.Collections.Generic;
 	public static class FenUtility {
 
-		static Dictionary<char, int> pieceTypeFromSymbol = new Dictionary<char, int> () {
-			['k'] = Piece.King, ['p'] = Piece.Pawn, ['n'] = Piece.Knight, ['b'] = Piece.Bishop, ['r'] = Piece.Rook, ['q'] = Piece.Queen
+		static Dictionary<char, int> pieceTypeFromSymbol = new Dictionary<char, int>()
+		{
+			['k'] = Piece.King,
+			['p'] = Piece.Pawn,
+			['n'] = Piece.Knight,
+			['b'] = Piece.Bishop,
+			['r'] = Piece.Rook,
+			['q'] = Piece.Queen,
+			['a'] = Piece.Amazon,
+			['c'] = Piece.Archbishop,
+			['d'] = Piece.Cannon,
+			['e'] = Piece.Champion,
+			['f'] = Piece.Chancellor,
+			['g'] = Piece.Coordinator,
+			['h'] = Piece.Dragon_Horse,
+			['i'] = Piece.Dragon_King,
+			['j'] = Piece.Elephant,
+			['l'] = Piece.Falcon,
+			['m'] = Piece.Gold_General,
+			['o'] = Piece.Guard,
+			['s'] = Piece.Hunter,
+			['t'] = Piece.Immobilizer,
+			['u'] = Piece.Lance,
+			['v'] = Piece.Long_Leaper,
+			['w'] = Piece.Mao,
+			['x'] = Piece.Ultima_Pawn,
+			['y'] = Piece.Withdrawer,
+			['z'] = Piece.Wizard,
+			['<'] = Piece.Silver_General,
+			['>'] = Piece.Silver_General
 		};
 
-		public const string startFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+		public const string startFen = "rmxxxxcfnnhikqnnfcxxxx>r/uljvwobzaadeedaazbowvjlu/pppppppppppppppppppppppp/888/888/888/888/888/888/888/888/888/888/888/888/888/888/888/888/888/888/PPPPPPPPPPPPPPPPPPPPPPPP/ULJVWOBZAADEEDAAZBOWVJLU/R<XXXXCFNNHIKQNNFCXXXXMR w - - 0 1";
 
 		// Load position from fen string
 		public static LoadedPositionInfo PositionFromFen (string fen) {
@@ -15,7 +43,7 @@
 			string[] sections = fen.Split (' ');
 
 			int file = 0;
-			int rank = 7;
+			int rank = 23;
 
 			foreach (char symbol in sections[0]) {
 				if (symbol == '/') {
@@ -58,7 +86,7 @@
 		// Get the fen string of the current position
 		public static string CurrentFen (Board board) {
 			string fen = "";
-			for (int rank = 7; rank >= 0; rank--) {
+			for (int rank = 24; rank >= 0; rank--) {
 				int numEmptyFiles = 0;
 				for (int file = 0; file < 8; file++) {
 					int i = rank * 8 + file;
@@ -90,8 +118,75 @@
 							case Piece.Pawn:
 								pieceChar = 'P';
 								break;
+							case Piece.Amazon:
+								pieceChar = 'A';
+								break;
+							case Piece.Archbishop:
+								pieceChar = 'C';
+								break;
+							case Piece.Cannon:
+								pieceChar = 'D';
+								break;
+							case Piece.Champion:
+								pieceChar = 'E';
+								break;
+							case Piece.Chancellor:
+								pieceChar = 'F';
+								break;
+							case Piece.Coordinator:
+								pieceChar = 'G';
+								break;
+							case Piece.Dragon_Horse:
+								pieceChar = 'H';
+								break;
+							case Piece.Dragon_King:
+								pieceChar = 'I';
+								break;
+							case Piece.Elephant:
+								pieceChar = 'J';
+								break;
+							case Piece.Falcon:
+								pieceChar = 'L';
+								break;
+							case Piece.Gold_General:
+								pieceChar = 'M';
+								break;
+							case Piece.Guard:
+								pieceChar = 'O';
+								break;
+							case Piece.Hunter:
+								pieceChar = 'S';
+								break;
+							case Piece.Immobilizer:
+								pieceChar = 'T';
+								break;
+							case Piece.Lance:
+								pieceChar = 'U';
+								break;
+							case Piece.Long_Leaper:
+								pieceChar = 'V';
+								break;
+							case Piece.Mao:
+								pieceChar = 'W';
+								break;
+							case Piece.Ultima_Pawn:
+								pieceChar = 'X';
+								break;
+							case Piece.Withdrawer:
+								pieceChar = 'Y';
+								break;
+							case Piece.Wizard:
+								pieceChar = 'Z';
+								break;
 						}
+						if (!isBlack && piece == Piece.Silver_General) {
+							pieceChar = '<';
+						} else
+                        {
+							pieceChar = '>';
+                        }
 						fen += (isBlack) ? pieceChar.ToString ().ToLower () : pieceChar.ToString ();
+						
 					} else {
 						numEmptyFiles++;
 					}
@@ -154,7 +249,7 @@
 			public int plyCount;
 
 			public LoadedPositionInfo () {
-				squares = new int[64];
+				squares = new int[576];
 			}
 		}
 	}

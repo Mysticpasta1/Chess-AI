@@ -97,28 +97,6 @@
 				// Safe for king to move to this square
 				if (!SquareIsAttacked (targetSquare)) {
 					moves.Add (new Move (friendlyKingSquare, targetSquare));
-
-					// Castling:
-					if (!inCheck && !isCapture) {
-						// Castle kingside
-						if ((targetSquare == f1 || targetSquare == f8) && HasKingsideCastleRight) {
-							int castleKingsideSquare = targetSquare + 1;
-							if (board.Square[castleKingsideSquare] == Piece.None) {
-								if (!SquareIsAttacked (castleKingsideSquare)) {
-									moves.Add (new Move (friendlyKingSquare, castleKingsideSquare, Move.Flag.Castling));
-								}
-							}
-						}
-						// Castle queenside
-						else if ((targetSquare == d1 || targetSquare == d8) && HasQueensideCastleRight) {
-							int castleQueensideSquare = targetSquare - 1;
-							if (board.Square[castleQueensideSquare] == Piece.None && board.Square[castleQueensideSquare - 1] == Piece.None) {
-								if (!SquareIsAttacked (castleQueensideSquare)) {
-									moves.Add (new Move (friendlyKingSquare, castleQueensideSquare, Move.Flag.Castling));
-								}
-							}
-						}
-					}
 				}
 			}
 		}
@@ -322,20 +300,6 @@
 
 		bool SquareIsInCheckRay (int square) {
 			return inCheck && ((checkRayBitmask >> square) & 1) != 0;
-		}
-
-		bool HasKingsideCastleRight {
-			get {
-				int mask = (board.WhiteToMove) ? 1 : 4;
-				return (board.currentGameState & mask) != 0;
-			}
-		}
-
-		bool HasQueensideCastleRight {
-			get {
-				int mask = (board.WhiteToMove) ? 2 : 8;
-				return (board.currentGameState & mask) != 0;
-			}
 		}
 
 		void GenSlidingAttackMap () {

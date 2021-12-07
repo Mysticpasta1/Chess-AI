@@ -8,9 +8,30 @@
 		public const int Bishop = 5;
 		public const int Rook = 6;
 		public const int Queen = 7;
+		public const int Amazon = 8;
+		public const int Champion = 9;
+		public const int Wizard = 10;
+		public const int Chancellor = 11;
+		public const int Archbishop = 12;
+		public const int Falcon = 13;
+		public const int Hunter = 14;
+		public const int Silver_General = 15;
+		public const int Gold_General = 16;
+		public const int Lance = 17;
+		public const int Dragon_Horse = 18;
+		public const int Dragon_King = 19;
+		public const int Ultima_Pawn = 20;
+		public const int Withdrawer = 21;
+		public const int Long_Leaper = 22;
+		public const int Coordinator = 23;
+		public const int Immobilizer = 24;
+		public const int Elephant = 25;
+		public const int Cannon = 26;
+		public const int Mao = 27;
+		public const int Guard = 28;
 
-		public const int White = 8;
-		public const int Black = 16;
+		public const int White = 29;
+		public const int Black = 58;
 
 		const int typeMask = 0b00111;
 		const int blackMask = 0b10000;

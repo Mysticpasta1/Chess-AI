@@ -36,6 +36,27 @@
 		public PieceList[] queens;
 		public PieceList[] knights;
 		public PieceList[] pawns;
+		public PieceList[] dragon_kings;
+		public PieceList[] amazons;
+		public PieceList[] champions;
+		public PieceList[] wizards;
+		public PieceList[] chancellors;
+		public PieceList[] archbishops;
+		public PieceList[] falcons;
+		public PieceList[] hunters;
+		public PieceList[] silver_generals;
+		public PieceList[] gold_generals;
+		public PieceList[] lances;
+		public PieceList[] dragon_horses;
+		public PieceList[] ultima_pawns;
+		public PieceList[] withdrawers;
+		public PieceList[] long_leapers;
+		public PieceList[] coordinators;
+		public PieceList[] immobilizors;
+		public PieceList[] elephants;
+		public PieceList[] cannons;
+		public PieceList[] maos;
+		public PieceList[] guards;
 
 		PieceList[] allPieceLists;
 
@@ -122,18 +143,6 @@
 						pawns[opponentColourIndex].RemovePieceAtSquare (epPawnSquare);
 						ZobristKey ^= Zobrist.piecesArray[Piece.Pawn, opponentColourIndex, epPawnSquare];
 						break;
-					case Move.Flag.Castling:
-						bool kingside = moveTo == BoardRepresentation.g1 || moveTo == BoardRepresentation.g8;
-						int castlingRookFromIndex = (kingside) ? moveTo + 1 : moveTo - 2;
-						int castlingRookToIndex = (kingside) ? moveTo - 1 : moveTo + 1;
-
-						Square[castlingRookFromIndex] = Piece.None;
-						Square[castlingRookToIndex] = Piece.Rook | ColourToMove;
-
-						rooks[ColourToMoveIndex].MovePiece (castlingRookFromIndex, castlingRookToIndex);
-						ZobristKey ^= Zobrist.piecesArray[Piece.Rook, ColourToMoveIndex, castlingRookFromIndex];
-						ZobristKey ^= Zobrist.piecesArray[Piece.Rook, ColourToMoveIndex, castlingRookToIndex];
-						break;
 				}
 			}
 
@@ -146,20 +155,6 @@
 				int file = BoardRepresentation.FileIndex (moveFrom) + 1;
 				currentGameState |= (ushort) (file << 4);
 				ZobristKey ^= Zobrist.enPassantFile[file];
-			}
-
-			// Piece moving to/from rook square removes castling right for that side
-			if (originalCastleState != 0) {
-				if (moveTo == BoardRepresentation.h1 || moveFrom == BoardRepresentation.h1) {
-					newCastleState &= whiteCastleKingsideMask;
-				} else if (moveTo == BoardRepresentation.a1 || moveFrom == BoardRepresentation.a1) {
-					newCastleState &= whiteCastleQueensideMask;
-				}
-				if (moveTo == BoardRepresentation.h8 || moveFrom == BoardRepresentation.h8) {
-					newCastleState &= blackCastleKingsideMask;
-				} else if (moveTo == BoardRepresentation.a8 || moveFrom == BoardRepresentation.a8) {
-					newCastleState &= blackCastleQueensideMask;
-				}
 			}
 
 			// Update zobrist key with new piece position and side to move
@@ -309,36 +304,199 @@
 
 		// Load the starting position
 		public void LoadStartPosition () {
-			LoadPosition (FenUtility.startFen);
+			LoadPosition(FenUtility.startFen);
 		}
+
+		public int isColor()
+		{
+			int colorIndex = WhiteIndex;
+			for (int color = 0; color < 576; color++)
+			{
+				if (color < 300)
+				{
+					colorIndex = WhiteIndex;
+				}
+				else
+				{
+					colorIndex = BlackIndex;
+				}
+			}
+			return colorIndex;
+        }
 
 		// Load custom position from fen string
 		public void LoadPosition (string fen) {
 			Initialize ();
-			var loadedPosition = FenUtility.PositionFromFen (fen);
-
+			var loadedPosition = FenUtility.PositionFromFen(fen);
+			int[] pieces = new int[]
+			{
+				Piece.Rook, Piece.Gold_General, Piece.Ultima_Pawn, Piece.Ultima_Pawn, Piece.Ultima_Pawn, Piece.Ultima_Pawn,
+				Piece.Archbishop, Piece.Chancellor, Piece.Knight, Piece.Knight, Piece.Dragon_Horse, Piece.Dragon_King,
+				Piece.King, Piece.Queen + Piece.Knight, Piece.Knight, Piece.Chancellor, Piece.Archbishop, Piece.Ultima_Pawn,
+				Piece.Ultima_Pawn, Piece.Ultima_Pawn, Piece.Ultima_Pawn, Piece.Silver_General, Piece.Rook, Piece.Lance,
+				Piece.Hunter, Piece.Elephant, Piece.Long_Leaper, Piece.Mao, Piece.Guard, Piece.Bishop, Piece.Wizard,
+				Piece.Amazon, Piece.Amazon, Piece.Cannon, Piece.Champion, Piece.Champion, Piece.Cannon, Piece.Amazon,
+				Piece.Amazon, Piece.Wizard, Piece.Bishop, Piece.Guard, Piece.Mao, Piece.Long_Leaper, Piece.Elephant,
+				Piece.Falcon, Piece.Lance, Piece.Pawn, Piece.Pawn, Piece.Pawn, Piece.Pawn, Piece.Pawn,
+				Piece.Pawn, Piece.Pawn, Piece.Pawn, Piece.Pawn, Piece.Pawn, Piece.Pawn, Piece.Pawn,
+				Piece.Pawn, Piece.Pawn, Piece.Pawn, Piece.Pawn, Piece.Pawn, Piece.Pawn, Piece.Pawn, Piece.Pawn,
+				Piece.Pawn, Piece.Pawn, Piece.Pawn, Piece.Pawn,Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,  Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,  Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,  Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,  Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,  Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,  Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,  Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,  Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None, Piece.None,
+				Piece.None, Piece.None, Piece.Rook, Piece.Silver_General, Piece.Ultima_Pawn, Piece.Ultima_Pawn, Piece.Ultima_Pawn, Piece.Ultima_Pawn,
+				Piece.Archbishop, Piece.Chancellor, Piece.Knight, Piece.Knight, Piece.Dragon_Horse, Piece.Dragon_King,
+				Piece.King, Piece.Queen + Piece.Knight, Piece.Knight, Piece.Chancellor, Piece.Archbishop, Piece.Ultima_Pawn,
+				Piece.Ultima_Pawn, Piece.Ultima_Pawn, Piece.Ultima_Pawn, Piece.Gold_General, Piece.Rook, Piece.Lance,
+				Piece.Falcon, Piece.Elephant, Piece.Long_Leaper, Piece.Mao, Piece.Guard, Piece.Bishop, Piece.Wizard,
+				Piece.Amazon, Piece.Amazon, Piece.Cannon, Piece.Champion, Piece.Champion, Piece.Cannon, Piece.Amazon,
+				Piece.Amazon, Piece.Wizard, Piece.Bishop, Piece.Guard, Piece.Mao, Piece.Long_Leaper, Piece.Elephant,
+				Piece.Hunter, Piece.Lance, Piece.Pawn, Piece.Pawn, Piece.Pawn, Piece.Pawn, Piece.Pawn,
+				Piece.Pawn, Piece.Pawn, Piece.Pawn, Piece.Pawn, Piece.Pawn, Piece.Pawn, Piece.Pawn,
+				Piece.Pawn, Piece.Pawn, Piece.Pawn, Piece.Pawn, Piece.Pawn, Piece.Pawn, Piece.Pawn, Piece.Pawn,
+				Piece.Pawn, Piece.Pawn, Piece.Pawn, Piece.Pawn
+			};
 			// Load pieces into board array and piece lists
-			for (int squareIndex = 0; squareIndex < 64; squareIndex++) {
-				int piece = loadedPosition.squares[squareIndex];
-				Square[squareIndex] = piece;
+			for (int squareIndex = 0; squareIndex <  576; squareIndex++) {
 
-				if (piece != Piece.None) {
-					int pieceType = Piece.PieceType (piece);
-					int pieceColourIndex = (Piece.IsColour (piece, Piece.White)) ? WhiteIndex : BlackIndex;
-					if (Piece.IsSlidingPiece (piece)) {
-						if (pieceType == Piece.Queen) {
-							queens[pieceColourIndex].AddPieceAtSquare (squareIndex);
-						} else if (pieceType == Piece.Rook) {
-							rooks[pieceColourIndex].AddPieceAtSquare (squareIndex);
-						} else if (pieceType == Piece.Bishop) {
-							bishops[pieceColourIndex].AddPieceAtSquare (squareIndex);
+				int piece = loadedPosition.squares[squareIndex];
+				int pieceColourIndex = (Piece.IsColour(piece, Piece.White)) ? WhiteIndex : BlackIndex;
+
+				if (piece != Piece.None)
+				{
+
+					if (Piece.IsSlidingPiece(piece))
+					{
+						if (piece == Piece.Queen)
+						{
+							queens[pieceColourIndex].AddPieceAtSquare(squareIndex);
 						}
-					} else if (pieceType == Piece.Knight) {
-						knights[pieceColourIndex].AddPieceAtSquare (squareIndex);
-					} else if (pieceType == Piece.Pawn) {
-						pawns[pieceColourIndex].AddPieceAtSquare (squareIndex);
-					} else if (pieceType == Piece.King) {
+						else if (piece == Piece.Rook)
+						{
+							rooks[pieceColourIndex].AddPieceAtSquare(squareIndex);
+						}
+						else if (piece == Piece.Bishop)
+						{
+							bishops[pieceColourIndex].AddPieceAtSquare(squareIndex);
+						}
+						else if (piece == Piece.Amazon)
+						{
+							amazons[pieceColourIndex].AddPieceAtSquare(squareIndex);
+						}
+						else if (piece == Piece.Falcon)
+						{
+							falcons[pieceColourIndex].AddPieceAtSquare(squareIndex);
+						}
+						else if (piece == Piece.Hunter)
+						{
+							hunters[pieceColourIndex].AddPieceAtSquare(squareIndex);
+						}
+						else if (piece == Piece.Chancellor)
+						{
+							chancellors[pieceColourIndex].AddPieceAtSquare(squareIndex);
+						}
+						else if (piece == Piece.Archbishop)
+						{
+							archbishops[pieceColourIndex].AddPieceAtSquare(squareIndex);
+						}
+						else if (piece == Piece.Dragon_Horse)
+						{
+							dragon_horses[pieceColourIndex].AddPieceAtSquare(squareIndex);
+						}
+						else if (piece == Piece.Dragon_King)
+						{
+							dragon_kings[pieceColourIndex].AddPieceAtSquare(squareIndex);
+						}
+						else if (piece == Piece.Cannon)
+						{
+							cannons[pieceColourIndex].AddPieceAtSquare(squareIndex);
+						}
+						else if (piece == Piece.Immobilizer)
+						{
+							immobilizors[pieceColourIndex].AddPieceAtSquare(squareIndex);
+						}
+						else if (piece == Piece.Long_Leaper)
+						{
+							long_leapers[pieceColourIndex].AddPieceAtSquare(squareIndex);
+						}
+						else if (piece == Piece.Coordinator)
+						{
+							coordinators[pieceColourIndex].AddPieceAtSquare(squareIndex);
+						}
+						else if (piece == Piece.Withdrawer)
+						{
+							withdrawers[pieceColourIndex].AddPieceAtSquare(squareIndex);
+						}
+						else if (piece == Piece.Lance)
+						{
+							lances[pieceColourIndex].AddPieceAtSquare(squareIndex);
+						}
+					}
+					else if (piece == Piece.Knight)
+					{
+						knights[pieceColourIndex].AddPieceAtSquare(squareIndex);
+					}
+					else if (piece == Piece.Pawn)
+					{
+						pawns[pieceColourIndex].AddPieceAtSquare(squareIndex);
+					}
+					else if (piece == Piece.King)
+					{
 						KingSquare[pieceColourIndex] = squareIndex;
+					}
+					else if (piece == Piece.Ultima_Pawn)
+					{
+						ultima_pawns[pieceColourIndex].AddPieceAtSquare(squareIndex);
+					}
+					else if (piece == Piece.Elephant)
+					{
+						elephants[pieceColourIndex].AddPieceAtSquare(squareIndex);
+					}
+					else if (piece == Piece.Mao)
+					{
+						maos[pieceColourIndex].AddPieceAtSquare(squareIndex);
+					}
+					else if (piece == Piece.Guard)
+					{
+						guards[pieceColourIndex].AddPieceAtSquare(squareIndex);
+					}
+					else if (piece == Piece.Silver_General)
+					{
+						silver_generals[pieceColourIndex].AddPieceAtSquare(squareIndex);
+					}
+					else if (piece == Piece.Gold_General)
+					{
+						gold_generals[pieceColourIndex].AddPieceAtSquare(squareIndex);
+					}
+					else if (piece == Piece.Wizard)
+					{
+						wizards[pieceColourIndex].AddPieceAtSquare(squareIndex);
+					}
+					else if (piece == Piece.Champion)
+					{
+						champions[pieceColourIndex].AddPieceAtSquare(squareIndex);
 					}
 				}
 			}
@@ -363,7 +521,7 @@
 		}
 
 		void Initialize () {
-			Square = new int[64];
+			Square = new int[576];
 			KingSquare = new int[2];
 
 			gameStateHistory = new Stack<uint> ();
@@ -372,29 +530,92 @@
 			plyCount = 0;
 			fiftyMoveCounter = 0;
 
-			knights = new PieceList[] { new PieceList (10), new PieceList (10) };
-			pawns = new PieceList[] { new PieceList (8), new PieceList (8) };
-			rooks = new PieceList[] { new PieceList (10), new PieceList (10) };
-			bishops = new PieceList[] { new PieceList (10), new PieceList (10) };
-			queens = new PieceList[] { new PieceList (9), new PieceList (9) };
+			knights = new PieceList[] { new PieceList (26), new PieceList (26) };
+			pawns = new PieceList[] { new PieceList (24), new PieceList (24) };
+			rooks = new PieceList[] { new PieceList (26), new PieceList (26) };
+			bishops = new PieceList[] { new PieceList (26), new PieceList (26)};
+			queens = new PieceList[] { new PieceList (25), new PieceList (25) };
+			amazons = new PieceList[] { new PieceList(4), new PieceList(4) };
+			gold_generals = new PieceList[] { new PieceList(1), new PieceList(1) };
+			silver_generals = new PieceList[] { new PieceList(1), new PieceList(1) };
+			ultima_pawns = new PieceList[] { new PieceList(8), new PieceList(8) };
+			cannons = new PieceList[] { new PieceList(2), new PieceList(2) };
+		    archbishops = new PieceList[] { new PieceList(2), new PieceList(2) };
+			lances = new PieceList[] { new PieceList(2), new PieceList(2) };
+			maos = new PieceList[] { new PieceList(2), new PieceList(2) };
+			elephants = new PieceList[] { new PieceList(2), new PieceList(2) };
+			guards = new PieceList[] { new PieceList(2), new PieceList(2) };
+			falcons = new PieceList[] { new PieceList(1), new PieceList(1) };
+			hunters = new PieceList[] { new PieceList(1), new PieceList(1) };
+			dragon_kings = new PieceList[] { new PieceList(1), new PieceList(1) };
+			dragon_horses = new PieceList[] { new PieceList(1), new PieceList(1) };
+			champions = new PieceList[] { new PieceList(2), new PieceList(2) };
+			chancellors = new PieceList[] { new PieceList(2), new PieceList(2) };
+			wizards = new PieceList[] { new PieceList(2), new PieceList(2) };
+			long_leapers = new PieceList[] { new PieceList(2), new PieceList(2) };
+			coordinators = new PieceList[] { new PieceList(2), new PieceList(2) };
+			withdrawers = new PieceList[] { new PieceList(2), new PieceList(2) };
+			immobilizors = new PieceList[] { new PieceList(2), new PieceList(2) };
 			PieceList emptyList = new PieceList (0);
 			allPieceLists = new PieceList[] {
 				emptyList,
 				emptyList,
 				pawns[WhiteIndex],
 				knights[WhiteIndex],
+				champions[WhiteIndex],
+				wizards[WhiteIndex],
+				silver_generals[WhiteIndex],
+				gold_generals[WhiteIndex],
+				ultima_pawns[WhiteIndex],
+				elephants[WhiteIndex],
+				maos[WhiteIndex],
+				guards[WhiteIndex],
 				emptyList,
 				bishops[WhiteIndex],
 				rooks[WhiteIndex],
 				queens[WhiteIndex],
+				amazons[WhiteIndex],
+				falcons[WhiteIndex],
+				hunters[WhiteIndex],
+				chancellors[WhiteIndex],
+				archbishops[WhiteIndex],
+				withdrawers[WhiteIndex],
+				long_leapers[WhiteIndex],
+				coordinators[WhiteIndex],
+				immobilizors[WhiteIndex],
+				cannons[WhiteIndex],
+				lances[WhiteIndex],
+				dragon_horses[WhiteIndex],
+				dragon_kings[WhiteIndex],
 				emptyList,
 				emptyList,
 				pawns[BlackIndex],
 				knights[BlackIndex],
+				champions[BlackIndex],
+				wizards[BlackIndex],
+				silver_generals[BlackIndex],
+				gold_generals[BlackIndex],
+				ultima_pawns[BlackIndex],
+				elephants[BlackIndex],
+				maos[BlackIndex],
+				guards[BlackIndex],
 				emptyList,
 				bishops[BlackIndex],
 				rooks[BlackIndex],
 				queens[BlackIndex],
+				amazons[BlackIndex],
+				falcons[BlackIndex],
+				hunters[BlackIndex],
+				chancellors[BlackIndex],
+				archbishops[BlackIndex],
+				withdrawers[BlackIndex],
+				long_leapers[BlackIndex],
+				coordinators[BlackIndex],
+				immobilizors[BlackIndex],
+				cannons[BlackIndex],
+				dragon_horses[BlackIndex],
+				dragon_kings[BlackIndex],
+				lances[BlackIndex]
 			};
 		}
 	}

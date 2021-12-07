@@ -154,29 +154,6 @@
 
 				moves.Add (new Move (friendlyKingSquare, targetSquare));
 
-				// Castling:
-				if (!isCapture && !SquareAttacked (friendlyKingSquare, opponentColour)) {
-					// Castle kingside
-					if ((targetSquare == f1 || targetSquare == f8) && HasKingsideCastleRight) {
-						if (!SquareAttacked (targetSquare, opponentColour)) {
-							int castleKingsideSquare = targetSquare + 1;
-							if (board.Square[castleKingsideSquare] == Piece.None) {
-								moves.Add (new Move (friendlyKingSquare, castleKingsideSquare, Move.Flag.Castling));
-
-							}
-						}
-					}
-					// Castle queenside
-					else if ((targetSquare == d1 || targetSquare == d8) && HasQueensideCastleRight) {
-						if (!SquareAttacked (targetSquare, opponentColour)) {
-							int castleQueensideSquare = targetSquare - 1;
-							if (board.Square[castleQueensideSquare] == Piece.None && board.Square[castleQueensideSquare - 1] == Piece.None) {
-								moves.Add (new Move (friendlyKingSquare, castleQueensideSquare, Move.Flag.Castling));
-							}
-						}
-					}
-				}
-
 			}
 		}
 

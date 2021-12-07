@@ -6,9 +6,9 @@
 	int[] map;
 	int numPieces;
 
-	public PieceList (int maxPieceCount = 16) {
+	public PieceList (int maxPieceCount = 72) {
 		occupiedSquares = new int[maxPieceCount];
-		map = new int[64];
+		map = new int[576];
 		numPieces = 0;
 	}
 
